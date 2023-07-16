@@ -1,41 +1,82 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { addTweet } from './actions';
-
+import { addTweet, editTweet } from './actions';
 // eslint-disable-next-line
-const Tweets = ({ tweets, addTweet }) => {
+const Tweets = ({ tweets, addTweet, editTweet }) => {
   const [tweetContent, setTweetContent] = useState('');
 
   const TweetFeed = () => (
+    
     <>
       <h2>Tweets:</h2>
       <ul>
         {tweets.map((tweet, index) => (
-          <li key={index}>{tweet}</li>
+          <li key={index} onChange={handleEditTweet }>{tweet} </li> 
         ))}
       </ul>
     </>
   )
+  
+let contTweet;
+  if (tweetContent) {
+    contTweet = (
+      <>
+      <input
+      value={tweets.tweet}
+      onChange={(e) =>{
+        onChange({
+          ...tweets,
+          tweet: e.target.value,
+        })
+      }}
+      />
+      <button onClick={() => setTweetContent(false)}>Save</button>
+      </>
+    )
+  } else {
+    contTweet = (
+      <>
+        {tweets.text}
+        <button onClick={() => setTweetContent(true)}>Edit</button>
+      </>
+    )
+  }
+ 
 
-  const handleAddTweet = () => {
+
+  const handleAddTweet = (e) => {
+    e.preventDefault();
     if (tweetContent.trim() !== '') {
       addTweet(tweetContent);
       setTweetContent('');
     }
   };
 
+  
+
+  const handleEditTweet = () =>{
+    // if (tweetContent.trim() !== '') {
+    //   editTweet(tweetContent);
+    //   setTweetContent('');
+    // }
+  }
+
+  
+  
+  
+
   return (
     <div>
       <h1>Super Twitter</h1>
-      <div>
+      <form>
         <input
           type="text"
           placeholder="Ingrese su tweet"
           value={tweetContent}
           onChange={(e) => setTweetContent(e.target.value)}
         />
-        <button onClick={handleAddTweet}>Agregar tweet</button>
-      </div>
+        <button type='submit' onClick={(e) => handleAddTweet(e)}>Agregar tweet</button>
+      </form>
       <div>
         {tweets.length > 0 ? <TweetFeed /> : <h2>No tweets yet</h2>}
       </div>
@@ -51,7 +92,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTweet: (tweet) => dispatch(addTweet(tweet))
+    addTweet: (tweet) => dispatch(addTweet(tweet)),
+    editTweet: (tweet) => dispatch(editTweet(tweet))
   };
 };
 

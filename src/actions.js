@@ -5,6 +5,13 @@ export const addTweet = (tweet) => {
   };
 };
 
+export const editTweet = (tweet) => {
+  return {
+    type: "EDIT_TWEET",
+    payload: tweet,
+  };
+};
+
 export const registerUser = (user) => {
   return {
     type: 'REGISTER_USER',
