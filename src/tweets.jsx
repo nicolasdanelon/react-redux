@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { addTweet } from './actions';
+import { addTweet, deleteTweet } from './actions';
 
 // eslint-disable-next-line
 const Tweets = ({ tweets, addTweet }) => {
@@ -42,6 +42,23 @@ const Tweets = ({ tweets, addTweet }) => {
     </div>
   );
 };
+const TweetsList = (props) => {
+  const handleDelete = (tweet) => {
+    props.deleteTweet(tweet);
+  };
+
+  return (
+    <div>
+      {props.tweets.map(tweet => (
+        <div key={tweet.id}>
+          <p>{tweet.text}</p>
+          <button onClick={() => handleDelete(tweet.id)}>Borrar</button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 
 const mapStateToProps = (state) => {
   return {
@@ -51,8 +68,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTweet: (tweet) => dispatch(addTweet(tweet))
+    addTweet: (tweet) => dispatch(addTweet(tweet)),
+    deleteTweet: (tweet) => dispatch(deleteTweet(tweet))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tweets);
+export default connect(mapStateToProps, mapDispatchToProps)(Tweets, TweetsList);
