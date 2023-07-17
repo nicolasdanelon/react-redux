@@ -11,36 +11,40 @@ const Tweets = ({ tweets, addTweet, editTweet }) => {
       <h2>Tweets:</h2>
       <ul>
         {tweets.map((tweet, index) => (
-          <li key={index} onChange={handleEditTweet }>{tweet} </li> 
+          <li key={index} >
+          <input value={tweet} onChange={(e) => setTweetContent(e.target.value)}/>
+          <button onClick={() => handleEditTweet(index)}>edit
+          </button>
+          </li> 
         ))}
       </ul>
     </>
   )
   
-let contTweet;
-  if (tweetContent) {
-    contTweet = (
-      <>
-      <input
-      value={tweets.tweet}
-      onChange={(e) =>{
-        onChange({
-          ...tweets,
-          tweet: e.target.value,
-        })
-      }}
-      />
-      <button onClick={() => setTweetContent(false)}>Save</button>
-      </>
-    )
-  } else {
-    contTweet = (
-      <>
-        {tweets.text}
-        <button onClick={() => setTweetContent(true)}>Edit</button>
-      </>
-    )
-  }
+// let contTweet;
+//   if (tweetContent) {
+//     contTweet = (
+//       <>
+//       <input
+//       value={tweets.tweet}
+//       onChange={(e) =>{
+//         onChange({
+//           ...tweets,
+//           tweet: e.target.value,
+//         })
+//       }}
+//       />
+//       <button onClick={() => setTweetContent(false)}>Save</button>
+//       </>
+//     )
+//   } else {
+//     contTweet = (
+//       <>
+//         {tweets.text}
+//         <button onClick={() => setTweetContent(true)}>Edit</button>
+//       </>
+//     )
+//   }
  
 
 
@@ -54,11 +58,11 @@ let contTweet;
 
   
 
-  const handleEditTweet = () =>{
-    // if (tweetContent.trim() !== '') {
-    //   editTweet(tweetContent);
-    //   setTweetContent('');
-    // }
+  const handleEditTweet = (id) =>{
+    if (tweetContent.trim() !== '') {
+      editTweet(tweetContent, id);
+      setTweetContent('');
+    }
   }
 
   

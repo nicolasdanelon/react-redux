@@ -1,5 +1,3 @@
-import tweets from "./tweets";
-
 const initialState = {
   user: null,
   tweets: []
@@ -13,19 +11,15 @@ const rootReducer = (state = initialState, action) => {
         tweets: [...state.tweets, action.payload]
       };
 
-    case 'EDIT_TWEET':
+    case 'EDIT_TWEET': {
+      const data = action.payload;
+      const updatedTweets = state.tweets.filter(tweet => tweet.id !== data.tweet.id);
       return {
         ...state,
-        tweets: [...state.tweets, action.payload]
-    };
-    // case 'EDIT_TWEET': {
-    //   return tweets.map((tweet) => {
-    //     if (tweet.index === action.tweets.index) {
-    //       return action.tweets;
-    //     } else {
-    //       return tweet;
-    //     }
-    //   });
+        tweets: [...state.tweets, updatedTweets]
+      }
+    }
+
 
     default:
       return state;
