@@ -10,6 +10,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         tweets: [...state.tweets, action.payload]
       };
+
+    case 'EDIT_TWEET': {
+      const data = action.payload;
+      const updatedTweets = state.tweets.filter(tweet => tweet.id !== data.tweet.id);
+      return {
+        ...state,
+        tweets: [...state.tweets, updatedTweets]
+      }
+    }
+
+
     default:
       return state;
   }
