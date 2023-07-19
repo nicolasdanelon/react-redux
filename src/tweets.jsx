@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { addTweet, deleteTweet } from './actions';
 
 // eslint-disable-next-line
-const Tweets = ({ tweets, addTweet }) => {
+const Tweets = ({ tweets, addTweet, deleteTweet }) => {
   const [tweetContent, setTweetContent] = useState('');
 
   const TweetFeed = () => (
@@ -11,7 +11,11 @@ const Tweets = ({ tweets, addTweet }) => {
       <h2>Tweets:</h2>
       <ul>
         {tweets.map((tweet, index) => (
-          <li key={index}>{tweet}</li>
+          <li key={index}>
+            <p>{tweet}</p>
+            <button onClick={() => handleDelete(index)}>Remove</button>
+          </li>
+
         ))}
       </ul>
     </>
@@ -22,6 +26,9 @@ const Tweets = ({ tweets, addTweet }) => {
       addTweet(tweetContent);
       setTweetContent('');
     }
+  };
+  const handleDelete = (tweetIndex) => {
+    deleteTweet(tweetIndex);
   };
 
   return (
@@ -42,21 +49,8 @@ const Tweets = ({ tweets, addTweet }) => {
     </div>
   );
 };
-const TweetsList = (props) => {
-  const handleDelete = (tweet) => {
-    props.deleteTweet(tweet);
-  };
 
-  return (
-    <div>
-      {props.tweets.map(tweet => (
-        <div key={tweet.id}>
-          <button onClick={() => handleDelete(tweet.id)}>Remove Tweet</button>
-        </div>
-      ))}
-    </div>
-  );
-};
+
 
 
 const mapStateToProps = (state) => {
@@ -72,4 +66,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tweets, TweetsList);
+export default connect(mapStateToProps, mapDispatchToProps)(Tweets);
