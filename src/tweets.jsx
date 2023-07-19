@@ -51,8 +51,7 @@ const TweetsList = (props) => {
     <div>
       {props.tweets.map(tweet => (
         <div key={tweet.id}>
-          <p>{tweet.text}</p>
-          <button onClick={() => handleDelete(tweet.id)}>Borrar</button>
+          <button onClick={() => handleDelete(tweet.id)}>Remove Tweet</button>
         </div>
       ))}
     </div>

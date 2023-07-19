@@ -11,8 +11,8 @@ const rootReducer = (state = initialState, action) => {
         tweets: [...state.tweets, action.payload]
       };
     case 'DELETE_TWEET':
-      const tweet = action.payload;
-      const updatedTweets = state.tweets.filter(tweet => tweet.id !== tweet);
+      const tweetId = action.payload;
+      const updatedTweets = state.tweets.filter(tweet => tweet.id !== tweetId);
       return {
         ...state,
         tweets: updatedTweets
