@@ -1,14 +1,15 @@
 export const addTweet = (tweet) => {
   return {
     type: 'ADD_TWEET',
-    payload: tweet
+    payload: tweet,
   };
 };
 
-export const editTweet = (tweet, id) => {
+export const editTweet = (tweetIndex, updatedContent) => {
   return {
     type: "EDIT_TWEET",
-    payload: { tweet, id }
+    tweetIndex,
+    updatedContent,
   };
 };
 

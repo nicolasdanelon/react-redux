@@ -6,46 +6,23 @@ const Tweets = ({ tweets, addTweet, deleteTweet, editTweet }) => {
   const [tweetContent, setTweetContent] = useState('');
 
   const TweetFeed = () => (
-    
+
     <>
       <h2>Tweets:</h2>
       <ul>
         {tweets.map((tweet, index) => (
           <li key={index} >
-          <input value={tweet} onChange={(e) => setTweetContent(e.target.value)}/>
-          <button onClick={() => handleEditTweet(index)}>edit
-          </button>
-          </li> 
+            <input 
+              value={tweet}
+              onChange={(e) => setTweetContent(e.target.value)}
+            />
+            <button onClick={() => handleEditTweet(index, tweet)}>Edit Tweet</button>
+          </li>
         ))}
       </ul>
     </>
   )
-  
-// let contTweet;
-//   if (tweetContent) {
-//     contTweet = (
-//       <>
-//       <input
-//       value={tweets.tweet}
-//       onChange={(e) =>{
-//         onChange({
-//           ...tweets,
-//           tweet: e.target.value,
-//         })
-//       }}
-//       />
-//       <button onClick={() => setTweetContent(false)}>Save</button>
-//       </>
-//     )
-//   } else {
-//     contTweet = (
-//       <>
-//         {tweets.text}
-//         <button onClick={() => setTweetContent(true)}>Edit</button>
-//       </>
-//     )
-//   }
- 
+
 
 
   const handleAddTweet = (e) => {
@@ -56,18 +33,15 @@ const Tweets = ({ tweets, addTweet, deleteTweet, editTweet }) => {
     }
   };
 
-  
 
-  const handleEditTweet = (id) =>{
-    if (tweetContent.trim() !== '') {
-      editTweet(tweetContent, id);
-      setTweetContent('');
+  const handleEditTweet = (tweetIndex, updatedContent) => {
+    if (updatedContent.trim() !== '') {
+      setTweetContent(updatedContent);
+      editTweet(tweetIndex, updatedContent);
     }
-  }
+  };
 
-  
-  
-  
+ 
   const handleDelete = (tweetIndex) => {
     deleteTweet(tweetIndex);
   };
@@ -103,7 +77,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addTweet: (tweet) => dispatch(addTweet(tweet)),
-    editTweet: (tweet) => dispatch(editTweet(tweet)),
+    editTweet: (tweetIndex, updatedContent) => dispatch(editTweet(tweetIndex, updatedContent)),,
     deleteTweet: (tweet) => dispatch(deleteTweet(tweet))
   };
 };
