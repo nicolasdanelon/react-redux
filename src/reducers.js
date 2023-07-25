@@ -10,9 +10,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         tweets: [...state.tweets, action.payload]
       };
+    case 'DELETE_TWEET':
+      const tweetIndex = action.payload;
+      const updatedTweets = state.tweets.filter((tweet, index) => index !== tweetIndex);
+      return {
+        ...state,
+        tweets: updatedTweets
+      };
     default:
       return state;
   }
 };
 
-export default rootReducer;
+export default rootReducer

@@ -18,3 +18,9 @@ export const loginUser = (user) => {
     payload: user
   };
 };
+export const deleteTweet = (tweetId) => {
+  return {
+    type: 'DELETE_TWEET',
+    payload: tweetId
+  };
+};
