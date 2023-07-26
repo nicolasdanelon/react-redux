@@ -15,12 +15,21 @@ const rootReducer = (state = initialState, action) => {
 
 
     case 'EDIT_TWEET': {
-      const tweetIndex = action.payload;
+      const {tweetIndex, editContent} = action.payload;
       const updatedTweets = state.tweets.map((tweet, index) =>
-        index === tweetIndex ? { ...tweet } : tweet
+        index === tweetIndex ?  tweet = editContent : tweet
       );
       return { ...state, tweets: updatedTweets };
 
+    }
+
+    case 'DELETE_TWEET':{
+      const tweetIndex = action.payload;
+      const updatedTweets = state.tweets.filter((tweet, index) => index !== tweetIndex);
+      return {
+        ...state,
+        tweets: updatedTweets
+      };
     }
     default:
       return state;

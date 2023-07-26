@@ -5,11 +5,13 @@ export const addTweet = (tweet) => {
   };
 };
 
-export const editTweet = (tweetIndex, updatedContent) => {
+export const editTweet = (tweetIndex, editContent) => {
   return {
     type: "EDIT_TWEET",
-    tweetIndex,
-    updatedContent,
+    payload: {
+      tweetIndex,
+      editContent
+    }
   };
 };
 
